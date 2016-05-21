@@ -67,6 +67,7 @@ describe("Chat Server",function(){
       var client2 = new WebSocket('ws://localhost:3000/');
       client2.onopen = function(){
         client1.send(user2Message);
+        client1.send(user2Message);
         client2.onmessage = function(msg){
           num++;
           var returnObject = JSON.parse(msg.data);
