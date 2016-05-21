@@ -13,7 +13,7 @@ EM.run do
     end
 
     post "/bot" do
-       return "hoge"
+      return "hoge"
     end
 
 
@@ -24,34 +24,33 @@ EM.run do
   connections = []
   EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 3000) do |ws|
     ws.onopen do
-       connections << ws
+      connections << ws
     end
 
     ws.onmessage do |message|
-      connections.each do |conn|
+      if message.include?("bot") then
+        message = message.split(" ")
+        command = message[1]
+        data = message[2]
 
-        if message.include?("bot") then
-           message = message.split(" ")
-           command = message[1]
-           data = message[2]
-
-           c = {
-             :"command" => message[1],
-             :"data" => message[2]
-           }
-
-           bot = Bot.new(c)
-           bot.generateHash()
-           message = bot.hash
-        end
-
-        message = {
-          "data"=> message
+        c = {
+          :"command" => message[1],
+          :"data" => message[2]
         }
 
-         conn.send(message.to_json)
+        bot = Bot.new(c)
+        bot.generateHash()
+        message = bot.hash
       end
-    end
 
+      message = {
+        "data"=> message
+      }
+
+      connections.each do |conn|
+        conn.send(message.to_json)
+      end
+
+    end
   end
 end  
