@@ -43,10 +43,11 @@ EM.run do
         message = bot.hash
       end
 
+      message = {
+        "data"=> message
+      }
+
       connections.each do |conn|
-        message = {
-          "data"=> message
-        }
         conn.send(message.to_json)
       end
 
