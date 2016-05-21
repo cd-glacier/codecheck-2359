@@ -10,6 +10,12 @@ EM.run do
     get "/" do
       File.read('app/index.html')
     end
+
+    post "/" do
+       return "hoge"
+    end
+
+
   end
   server = Thin::Server.start App, '0.0.0.0', 9000
 
