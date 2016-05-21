@@ -2,7 +2,7 @@ require 'em-websocket'
 require 'thin'
 require 'sinatra'
 require 'json'
-require './app/bot.rb'
+require 'bot.rb'
 
 set :public_folder, './app'
 
