@@ -12,6 +12,10 @@ $(function () {
   });
   ws.onmessage = function(msg){
     var returnObject = JSON.parse(msg.data);
+
+		var hash = "d202c06";
+		console.log(returnObject.data === hash);
+
     $('#messages').append($('<li>')).append($('<span id="clientId">').text(returnObject.id)).append($('<span id="clientMessage">').text(returnObject.data));
   };
   ws.onerror = function(err){
