@@ -3,6 +3,7 @@ build:
   - gem install em-websocket
   - gem install thin
   - gem install sinatra
+  - gem install json
 web:
   command: ruby app/server.rb
   port: 9000
