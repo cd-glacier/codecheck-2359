@@ -28,7 +28,6 @@ EM.run do
     end
 
     ws.onmessage do |message|
-=begin 
       if message.include?("bot") then
         message = message.split(" ")
         command = message[1]
@@ -43,7 +42,6 @@ EM.run do
         bot.generateHash()
         message = bot.hash
       end
-=end
 
       message = {
         "data"=> message
