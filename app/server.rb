@@ -29,18 +29,24 @@ EM.run do
 
     ws.onmessage do |message|
       if message.include?("bot") then
-        message = message.split(" ")
-        command = message[1]
-        data = message[2]
+        msg = message.split(" ")
+        command = msg[1]
+        data = msg[2]
 
         c = {
-          :"command" => message[1],
-          :"data" => message[2]
+          :"command" => msg[1],
+          :"data" => msg[2]
         }
 
         bot = Bot.new(c)
         bot.generateHash()
-        message = bot.hash
+
+        bot_msg = {
+          "data" => bot.hash
+        }
+
+        puts bot.hash
+
       end
 
       message = {
@@ -49,6 +55,7 @@ EM.run do
 
       connections.each do |conn|
         conn.send(message.to_json)
+        conn.send(bot_msg.to_json)  unless bot_msg.nil?
       end
 
     end
